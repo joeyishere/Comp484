@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Landing() {
+export default function Favorties() {
     return (
         <div>
-            Landing
+            Favorites
         </div>
     )
 }
