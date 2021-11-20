@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Container } from '@mui/material'
 
 export default function Explore() {
     const [movie, setMovie] = useState([])
@@ -13,12 +14,14 @@ export default function Explore() {
     }
 
     return (
-        <div>
-            {movie.map(movie => (
+        <Container maxWidth="lg" style={{marginTop: '8vh'}}>
+            <h1>Explore</h1>
+            {/* mapping through movies */}
+            {/* {movie.map(movie => (
                <div>
                 
                 </div> 
-            ))}
-        </div>
+            ))} */}
+        </Container>
     )
 }

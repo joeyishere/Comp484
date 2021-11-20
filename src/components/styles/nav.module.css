@@ -1,0 +1,13 @@
+.link {
+    padding-right: 20px;
+}
+.link:hover {
+    color: #f50057;
+}
+
+.logo {
+    margin-right: auto;
+    padding: 15;
+    color: inherit;
+    font-size: 28px;
+}
