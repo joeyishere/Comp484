@@ -1,0 +1,6 @@
+.link {
+    padding-right: 20px;
+}
+.link:hover {
+    color: #ffc107;
+}

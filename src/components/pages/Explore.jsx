@@ -14,7 +14,7 @@ export default function Explore() {
     }
 
     return (
-        <Container maxWidth="lg" style={{marginTop: '8vh'}}>
+        <Container maxWidth="lg" style={{marginTop: '10vh'}}>
             <h1>Explore</h1>
             {/* mapping through movies */}
             {/* {movie.map(movie => (
