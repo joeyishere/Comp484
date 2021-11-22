@@ -1,6 +1,17 @@
-.link {
-    padding-right: 20px;
+
+/* .link:hover {
+    color: black;
+} */
+.paperWrap {
+    width: 200px;
+    margin-top: 50px;
+    padding: 10px;
 }
-.link:hover {
-    color: #ffc107;
+.paperWrap:hover {
+    background-color: #ffc107;
+    color: black
+}
+
+.link {
+    margin-top: 50px;
 }

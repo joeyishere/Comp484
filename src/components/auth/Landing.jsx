@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, Link } from '@mui/material';
+import { Container, Button, Typography } from '@mui/material';
 import styles from '../styles/landing.module.css';
 import { logout, useAuth } from '../../firebase'
 
@@ -16,13 +16,19 @@ export default function Landing() {
         }
         setLoading(false);
     }
-    if(loading) return <div>Loading...</div>
+    if(loading) {
+        return (
+            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+                <h1>Loading...</h1>
+            </Container>
+        )
+    }
 
     if(currentUser){
         return (
             <Container maxWidth="lg" style={{marginTop: '10vh'}}>
-            <p>Welcome {currentUser.email}</p>
-            <button onClick={handleLogout}>Logout</button>
+            <p>Welcome {currentUser?.email}</p>
+            <Button variant="outlined" color="warning" onClick={handleLogout}>Logout</Button>
             </Container>
         )
     }
@@ -30,9 +36,15 @@ export default function Landing() {
     if(!currentUser){
         return (
             <Container maxWidth="lg" style={{marginTop: '10vh'}}>
-                <h1>Landing Page</h1>
-                <Link color="textPrimary" variant="button"underline="none" href="/login" className={styles.link}>Login</Link>
-                <Link color="textPrimary" variant="button"underline="none" href="/register" className={styles.link}>Signup</Link>
+                <center>
+                    <Typography variant="h4" component="h4">Login or Sign Up to save your favorite movies and tv shows</Typography>
+                    <div className={styles.link}>
+                        <Button variant="outlined" color="warning" href="/login" style={{width: '40%'}}>Login</Button>
+                    </div>
+                    <div className={styles.link}>
+                        <Button variant="outlined" color="warning" href="/register" style={{width: '40%'}}>Signup</Button>
+                    </div>
+                </center>
             </Container>
         )
     }

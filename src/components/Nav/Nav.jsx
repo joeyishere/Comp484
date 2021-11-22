@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { AppBar, Container, Toolbar, Link, Hidden, IconButton, Divider, SwipeableDrawer, List, ListItem} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { ChevronRight } from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
+import { ChevronRight, TravelExplore, Menu , Favorite, AccountCircle} from '@mui/icons-material';
 import styles from '../styles/nav.module.css';
 
 export default function Nav() {
@@ -13,13 +13,14 @@ export default function Nav() {
                 <Toolbar disableGutters>
                     <div className={styles.logo}>Movie Search</div>
                     <Hidden smDown>
-                        <Link color="textPrimary" variant="button"underline="none" href="/" className={styles.link}>Home</Link>
-                        <Link color="textPrimary" variant="button"underline="none" href="/explore" className={styles.link}>Explore</Link>
-                        <Link color="textPrimary" variant="button"underline="none" href="/favorites" className={styles.link}>Favorites</Link>
+                        <Link color="textPrimary" variant="button"underline="none" href="/" className={styles.link}><HomeIcon /></Link>
+                        <Link color="textPrimary" variant="button"underline="none" href="/explore" className={styles.link}><TravelExplore /></Link>
+                        <Link color="textPrimary" variant="button"underline="none" href="/favorites" className={styles.link}><Favorite /></Link>
+                        <Link color="textPrimary" variant="button"underline="none" href="/landing" className={styles.link}><AccountCircle /></Link>
                     </Hidden>
                     <Hidden smUp>
                         <IconButton aria-label="menu" onClick={() => setDrawerOpen(true)}>
-                            <MenuIcon />
+                            <Menu />
                         </IconButton>
                     </Hidden>
                 </Toolbar>
@@ -46,6 +47,9 @@ export default function Nav() {
                     </ListItem>
                     <ListItem button>
                         <Link color="textPrimary" variant="button"underline="none" href="/favorites" className={styles.link}>Favorites</Link>
+                    </ListItem>
+                    <ListItem button>
+                        <Link color="textPrimary" variant="button"underline="none" href="/landing" className={styles.link}>Account</Link>
                     </ListItem>
                 </List>
             </SwipeableDrawer>

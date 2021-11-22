@@ -1,8 +1,6 @@
 import React, {useState, useRef} from 'react';
-import { Container, Link } from '@mui/material';
+import { Container, Input, Button, List, ListItem} from '@mui/material';
 import { login, useAuth } from '../../firebase';
-
-import styles from '../styles/landing.module.css';
 
 export default function Login() {
     const emailRef = useRef();
@@ -21,16 +19,28 @@ export default function Login() {
         setLoading(false);
     };
     if(loading) {
-        return <div>Loading...</div>
+        return (
+            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+                <h1>Loading...</h1>
+            </Container>
+        )
     }
 
     if(!currentUser) {
         return (
             <Container maxWidth="lg" style={{marginTop: '10vh'}}>
-                <h1>Login Page</h1>
-                <input type="email" placeholder="Email" ref={emailRef} />
-                <input type="password" placeholder="Password" ref={passwordRef} />
-                <button onClick={handleLogin}>Sign In</button>
+                <h1>Login</h1>
+                <List>
+                    <ListItem style={{marginTop: '10px'}}>
+                        <Input type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '40%'}} />
+                    </ListItem>
+                    <ListItem style={{marginTop: '10px'}}>
+                        <Input type="password" placeholder="Password" inputRef={passwordRef} color="warning" style={{width: '40%'}} />
+                    </ListItem>
+                </List>
+                <div style={{marginTop: '20px', marginLeft: '15px'}}>
+                    <Button onClick={handleLogin} variant="outlined" color="warning">Sign In</Button>
+                </div>
             </Container>
         )
     }
@@ -38,9 +48,9 @@ export default function Login() {
         return (
             <Container maxWidth="lg" style={{marginTop: '10vh'}}>
                 <h1>Login Page</h1>
-                <p>You are already logged in.</p>
-                <Link color="textPrimary" variant="button"underline="none" href="/favorites" className={styles.link}>Go to Favorites</Link>
-                <Link color="textPrimary" variant="button"underline="none" href="/" className={styles.link}>Go to Home Page</Link>
+                <p>Welcome {currentUser?.email}, you are logged in.</p>
+                <Button variant="outlined" color="warning" href="/favorites" style={{marginRight: '15px'}}>Go to Favorites</Button>
+                <Button variant="outlined" color="warning" href="/">Go to Home Page</Button>
             </Container>
         )
     }
