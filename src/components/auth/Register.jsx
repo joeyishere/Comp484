@@ -1,18 +1,26 @@
 import React, {useRef, useState} from 'react';
 import { Container, List, ListItem, Input, Button } from '@mui/material';
-import {signUp, useAuth } from '../../firebase';
+import {signUp, useAuth, db } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function Register() {
+
     const emailRef = useRef();
     const passwordRef = useRef();
-    const NameRef = useRef();
+    const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
     const currentUser = useAuth();
 
     async function handleSignUp() {
         setLoading(true);
         try{
-            await signUp(emailRef.current.value, passwordRef.current.value);
+            await signUp(emailRef.current.value, passwordRef.current.value).then((user) => {
+                addDoc(collection(db, "users"), {
+                    name: name,
+                    email: user.user.email,
+                    uid: user.user.uid
+                });
+            });
         } catch(error){
             alert(error.message);
         }
@@ -43,7 +51,7 @@ export default function Register() {
                 <h1>Register</h1>
                 <List>
                     <ListItem style={{marginTop: '10px'}}>
-                        <Input type="text" placeholder="Name" inputRef={NameRef} color="warning" style={{width: '40%'}} />
+                        <Input type="text" placeholder="Name" onChange={(e) => {setName(e.target.value)}} color="warning" style={{width: '40%'}} />
                     </ListItem>
                     <ListItem style={{marginTop: '10px'}}>
                         <Input type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '40%'}} />
