@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import { Container, Link, List, ListItem, Input, Button } from '@mui/material';
+import { Container, List, ListItem, Input, Button } from '@mui/material';
 import {signUp, useAuth } from '../../firebase';
 
 export default function Register() {

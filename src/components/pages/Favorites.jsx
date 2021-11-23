@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Typography, Link} from '@mui/material';
+import { Container, Typography, Button} from '@mui/material';
 import { useAuth } from '../../firebase';
 import styles from '../styles/landing.module.css';
 
@@ -8,9 +8,12 @@ export default function Favorties() {
 
     if(currentUser){
         return (
-            <Container style={{marginTop: '8vh'}} maxWidth="lg">
-                <Typography variant="h2" component="h1" gutterBottom>
+            <Container style={{marginTop: '10vh'}} maxWidth="lg">
+                <Typography variant="h3" component="h3" gutterBottom>
                     Favorites page
+                </Typography>
+                <Typography variant="body1" component="p" gutterBottom>
+                    Hi {currentUser?.displayName} start saving your favorite Movies!
                 </Typography>
             </Container>
         )
@@ -18,12 +21,18 @@ export default function Favorties() {
 
     if(!currentUser){
         return (
-            <Container style={{marginTop: '8vh'}} maxWidth="lg">
-                <Typography variant="h2" component="h1" gutterBottom>
-                    You need to login to see your favorites.
-                    <Link color="textPrimary" variant="button"underline="none" href="/login" className={styles.link}>Login</Link>
-                    <Link color="textPrimary" variant="button"underline="none" href="/register" className={styles.link}>Signup</Link>
-                </Typography>
+            <Container style={{marginTop: '10vh'}} maxWidth="lg">
+                <div style={{textAlign: 'center'}}>
+                    <Typography variant="h4" component="h4" gutterBottom>
+                        You need to login to see your favorite movies and or tv shows.
+                    </Typography>
+                    <div className={styles.link}>
+                        <Button variant="outlined" color="warning" href="/login" style={{width: '40%'}}>Login</Button>
+                    </div>
+                    <div className={styles.link}>
+                        <Button variant="outlined" color="warning" href="/register" style={{width: '40%'}}>Signup</Button>
+                    </div>
+                </div>
             </Container>
         )
     }
