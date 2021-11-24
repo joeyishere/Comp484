@@ -18,7 +18,7 @@ export default function Landing() {
     }
     if(loading) {
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Loading...</h1>
             </Container>
         )
@@ -26,7 +26,7 @@ export default function Landing() {
 
     if(currentUser){
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
             <p>Welcome {currentUser?.email}</p>
             <Button variant="outlined" color="warning" onClick={handleLogout}>Logout</Button>
             </Container>
@@ -35,7 +35,7 @@ export default function Landing() {
 
     if(!currentUser){
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <center>
                     <Typography variant="h4" component="h4">Login or Sign Up to save your favorite movies and tv shows</Typography>
                     <div className={styles.link}>

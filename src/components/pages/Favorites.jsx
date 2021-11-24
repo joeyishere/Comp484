@@ -1,27 +1,46 @@
 import React from 'react'
-import { Container, Typography, Button} from '@mui/material';
+import { Container, Typography, Button, Grid} from '@mui/material';
 import { useAuth } from '../../firebase';
 import styles from '../styles/landing.module.css';
+import MovieCard from '../Card/MovieCard';
 
 export default function Favorties() {
     const currentUser = useAuth();
 
     if(currentUser){
         return (
-            <Container style={{marginTop: '10vh'}} maxWidth="lg">
-                <Typography variant="h3" component="h3" gutterBottom>
-                    Favorites page
+            <Container style={{marginTop: '90px'}} maxWidth="lg">
+                <Typography variant="h4" component="h4" style={{marginBottom: '25px'}} align="center" gutterBottom>
+                    Hi {currentUser?.displayName}, here are your favorite movies and tv shows.
                 </Typography>
-                <Typography variant="body1" component="p" gutterBottom>
-                    Hi {currentUser?.displayName} start saving your favorite Movies!
-                </Typography>
+                {/* hard coding favorite cards for testing */}
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                    <Grid item xs={2} sm={4} md={4} >
+                        <MovieCard />
+                    </Grid>
+                </Grid>
             </Container>
         )
     }
 
     if(!currentUser){
         return (
-            <Container style={{marginTop: '10vh'}} maxWidth="lg">
+            <Container style={{marginTop: '90px'}} maxWidth="lg">
                 <div style={{textAlign: 'center'}}>
                     <Typography variant="h4" component="h4" gutterBottom>
                         You need to login to see your favorite movies and or tv shows.

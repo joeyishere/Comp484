@@ -29,7 +29,7 @@ export default function Register() {
 
     if(loading){
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Loading...</h1>
             </Container>
         )
@@ -37,8 +37,8 @@ export default function Register() {
 
     if(currentUser){
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
-                <p>Welcome {currentUser?.email}, you have signed up.</p>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
+                <p>Welcome {name}, you have signed up.</p>
                 <Button variant="outlined" color="warning" href="/favorites" style={{marginRight: '15px'}}>Go to Favorites</Button>
                 <Button variant="outlined" color="warning" href="/">Go to Home Page</Button>
             </Container>
@@ -47,17 +47,17 @@ export default function Register() {
 
     if(!currentUser){
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Register</h1>
                 <List>
                     <ListItem style={{marginTop: '10px'}}>
-                        <Input type="text" placeholder="Name" onChange={(e) => {setName(e.target.value)}} color="warning" style={{width: '40%'}} />
+                        <Input required type="text" placeholder="Name" onChange={(e) => {setName(e.target.value)}} color="warning" style={{width: '40%'}} />
                     </ListItem>
                     <ListItem style={{marginTop: '10px'}}>
-                        <Input type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '40%'}} />
+                        <Input required type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '40%'}} />
                     </ListItem>
                     <ListItem style={{marginTop: '10px'}}>
-                        <Input type="password" placeholder="Password" inputRef={passwordRef} color="warning" style={{width: '40%'}} />
+                        <Input required type="password" placeholder="Password" inputRef={passwordRef} color="warning" style={{width: '40%'}} />
                     </ListItem>
                 </List>
                 <Button onClick={handleSignUp} variant="outlined" color="warning" style={{marginLeft: '15px', marginTop: '10px'}}>Register</Button>
