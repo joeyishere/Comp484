@@ -18,21 +18,7 @@ export default function Favorties() {
                     <Grid item xs={2} sm={4} md={4} >
                         <MovieCard />
                     </Grid>
-                    <Grid item xs={2} sm={4} md={4} >
-                        <MovieCard />
-                    </Grid>
-                    <Grid item xs={2} sm={4} md={4} >
-                        <MovieCard />
-                    </Grid>
-                    <Grid item xs={2} sm={4} md={4} >
-                        <MovieCard />
-                    </Grid>
-                    <Grid item xs={2} sm={4} md={4} >
-                        <MovieCard />
-                    </Grid>
-                    <Grid item xs={2} sm={4} md={4} >
-                        <MovieCard />
-                    </Grid>
+                    {}
                 </Grid>
             </Container>
         )

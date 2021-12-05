@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import { Container, List, ListItem, Input, Button } from '@mui/material';
 import {signUp, useAuth, db } from '../../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function Register() {
 
@@ -15,7 +15,7 @@ export default function Register() {
         setLoading(true);
         try{
             await signUp(emailRef.current.value, passwordRef.current.value).then((user) => {
-                addDoc(collection(db, "users"), {
+                setDoc(doc(db, "users", user.user.uid), {
                     name: name,
                     email: user.user.email,
                     uid: user.user.uid
