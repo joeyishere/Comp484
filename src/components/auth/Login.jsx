@@ -28,7 +28,7 @@ export default function Login() {
 
     if(!currentUser) {
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Login</h1>
                 <List>
                     <ListItem style={{marginTop: '10px'}}>
@@ -46,7 +46,7 @@ export default function Login() {
     }
     if(currentUser) {
         return (
-            <Container maxWidth="lg" style={{marginTop: '10vh'}}>
+            <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Login Page</h1>
                 <p>Welcome {currentUser?.email}, you are logged in.</p>
                 <Button variant="outlined" color="warning" href="/favorites" style={{marginRight: '15px'}}>Go to Favorites</Button>
