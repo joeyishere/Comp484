@@ -2,12 +2,13 @@ import React from 'react';
 import { Card, CardContent, Typography, CardActions, CardMedia, Button } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
 import {useAuth, db } from '../../firebase';
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, deleteField } from "firebase/firestore"; 
 
-export default function MovieCard({title, img, year,rating}) {
+export default function MovieCard({title, img, year, rating, favPage, updateState}) {
     const currentUser = useAuth();
+
     async function handleClick() {
-      if(currentUser){
+      if(currentUser && !favPage){
         const userDocRef = doc(db, "users", currentUser.uid);
         await setDoc(userDocRef, {
           "favorites": {
@@ -24,7 +25,21 @@ export default function MovieCard({title, img, year,rating}) {
           console.error("Error writing document: ", error);
         });
       }
-      else {
+
+      if(currentUser && favPage){
+        const userDocRef = doc(db, "users", currentUser.uid);
+        await setDoc(userDocRef, {
+          "favorites": {
+            [title]: deleteField()
+          }
+        }, { merge: true }).then(() => {
+          updateState(title);
+          console.log("Document successfully deleted!");
+        }).catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+      }
+      else if(!currentUser) {
         alert('Please login to add to favorites');
       }
     }
