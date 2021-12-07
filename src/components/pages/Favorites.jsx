@@ -41,11 +41,11 @@ export default function Favorties() {
         return (
             <Container style={{marginTop: '90px'}} maxWidth="lg">
                 {Object.keys(favorites).length > 0 ? 
-                    <Typography variant="h4" component="h4" style={{marginBottom: '25px'}} align="center" gutterBottom>
+                    <Typography variant="h3" component="h3" style={{marginBottom: '30px'}} align="center" gutterBottom>
                         Hi {name}, here are your favorite movies and tv shows.
                     </Typography>
                     :
-                    <Typography variant="h4" component="h4" style={{marginBottom: '25px'}} align="center" gutterBottom>
+                    <Typography variant="h3" component="h3" style={{marginBottom: '30px'}} align="center" gutterBottom>
                         Hi {name}, you have no favorite movies or tv shows, add some.
                     </Typography>
                 }

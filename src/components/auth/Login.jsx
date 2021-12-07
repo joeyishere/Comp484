@@ -31,14 +31,14 @@ export default function Login() {
             <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <h1>Login</h1>
                 <List>
-                    <ListItem style={{marginTop: '10px'}}>
-                        <Input type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '40%'}} />
+                    <ListItem style={{marginTop: '10px'}} disableGutters>
+                        <Input type="email" placeholder="Email" inputRef={emailRef} color="warning" style={{width: '60%'}} />
                     </ListItem>
-                    <ListItem style={{marginTop: '10px'}}>
-                        <Input type="password" placeholder="Password" inputRef={passwordRef} color="warning" style={{width: '40%'}} />
+                    <ListItem style={{marginTop: '10px'}} disableGutters>
+                        <Input type="password" placeholder="Password" inputRef={passwordRef} color="warning" style={{width: '60%'}} />
                     </ListItem>
                 </List>
-                <div style={{marginTop: '20px', marginLeft: '15px'}}>
+                <div style={{marginTop: '20px'}}>
                     <Button onClick={handleLogin} variant="outlined" color="warning">Sign In</Button>
                 </div>
             </Container>
@@ -46,8 +46,7 @@ export default function Login() {
     }
     if(currentUser) {
         return (
-            <Container maxWidth="lg" style={{marginTop: '90px'}}>
-                <h1>Login Page</h1>
+            <Container maxWidth="lg" style={{marginTop: '90px', textAlign: 'center'}}>
                 <p>Welcome {currentUser?.email}, you are logged in.</p>
                 <Button variant="outlined" color="warning" href="/favorites" style={{marginRight: '15px'}}>Go to Favorites</Button>
                 <Button variant="outlined" color="warning" href="/">Go to Home Page</Button>
