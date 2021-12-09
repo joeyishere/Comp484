@@ -3,7 +3,12 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Container } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+//new imports for Switches ! 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
+//All code for search bar styling. 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -29,7 +34,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
   }));
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
@@ -47,6 +52,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   }));
 
 
+
+
 export default function Explore() {
     const [movie, setMovie] = useState([])
     const [show, setShow] = useState([])
@@ -62,15 +69,32 @@ export default function Explore() {
     return (
         <Container maxWidth="lg" style={{marginTop: '10vh'}}>
             <h1>Explore</h1>
-            <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+              <Search>
+                <SearchIconWrapper>
+                    <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </Search>
+          <div> 
+            <FormGroup aria-label ="position" row>
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 1" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 2" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 3" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 4" />
+            </FormGroup>
+          </div>
+          <div> 
+            <FormGroup aria-label ="position" row>
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 5" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 6" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 7" />
+              <FormControlLabel control={<Switch defaultChecked />} label="Genre 8" />
+            </FormGroup>
+          </div>
+
             {/* mapping through movies */}
             {/* {movie.map(movie => (
                <div>
