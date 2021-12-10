@@ -10,9 +10,12 @@ export default function Home() {
 
     const [movies, setMovies] = useState([])
     const [shows, setShows] = useState([])
+    const[release,setRelease] = useState([])
 
     useEffect(() =>{
-        getMovie()
+        getMovie();
+        getRelease();
+        getShows();
     },[])
 
     const getMovie = async () => {
@@ -26,24 +29,45 @@ export default function Home() {
                 topTenMovies.push(e)
         });
         setMovies(topTenMovies)
-        // setShows(data.data.tv_shows)
     }
+    const getRelease = async () => {
+        const response = await fetch('https://imdb-api.com/en/API/InTheaters/k_5sh8gslw')
+        const data = await response.json()
+        console.log(data.items);
+        let newReleases = []
 
+         data.items.forEach((e, i ) => {
+            if (i < 12 && e !== undefined)
+                 newReleases.push(e)
+        });
+        setRelease(newReleases)
+    }
+    const getShows = async () => {
+        const response = await fetch('https://imdb-api.com/en/API/Top250TVs/k_5sh8gslw')
+        const data = await response.json()
+        console.log(data.items);
+        let topTenShows = []
+
+        data.items.forEach((e, i ) => {
+            if (i < 12 && e !== undefined)
+                topTenShows.push(e)
+        });
+        setShows(topTenShows)
+    }
     return (
         <Container className={styles.container} maxWidth="lg">
             <Typography variant = "h3" component = "h2" mt = {4} mb = {4}> 
                 New Releases
             </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
+                {release.map((item,i) => 
+                    <Grid key={i} item xs={2} sm={4} md={4}> 
+                        { i<3 ?
+                            <MovieCard title = {item.title} img = {item.image} year = {item.year}/>
+                            : null 
+                        }                                   {/* new releases do not have ratings */}                           
+                    </Grid>
+                )}
             </Grid>
             <Typography variant = "h3" component = "h2" mt = {4} mb = {4}> 
                 Top 12 Movies
@@ -62,15 +86,14 @@ export default function Home() {
                 Top 12 TV Shows
             </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
-                <Grid item xs={2} sm={4} md={4} >
-                    <MovieCard />
-                </Grid>
+            {shows.map((item,i) => 
+                    <Grid key={i} item xs={2} sm={4} md={4}> 
+                        { i<12 ?
+                            <MovieCard title = {item.title} img = {item.image} year = {item.year} rating = {item.imDbRating}/>
+                            : null 
+                        }
+                    </Grid>
+                )}
             </Grid>
         </Container>
     )
