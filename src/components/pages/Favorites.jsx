@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Typography, Button, Grid } from '@mui/material';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import styles from '../styles/landing.module.css';
 import MovieCard from '../Card/MovieCard';
 
@@ -11,10 +14,9 @@ export default function Favorties() {
     const [favorites, setFavorites] = useState({});
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState('');
-
     useEffect(() => {
-        if (currentUser) {
-            const fetchFav = async () => {
+        const fetchFav = async () => {
+            if (currentUser) {
                 const favoritesRef = doc(db, "users", currentUser.uid);
                 const docSnap = await getDoc(favoritesRef);
                 if (docSnap.exists()) {
@@ -26,10 +28,10 @@ export default function Favorties() {
                     console.log("No such document!");
                 }
             }
-            fetchFav();
         }
+        fetchFav();
         setLoading(false);
-    }, [currentUser || Object.keys(favorites).length]);
+    }, [currentUser]);
 
     const handleRemove = (movie) => {
         const newFav = { ...favorites };

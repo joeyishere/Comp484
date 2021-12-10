@@ -16,7 +16,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
               "title": title,
               "img": img,
               "year": year,
-              "rating": rating
+              "rating": rating ? rating : null
             }
           }
         }, { merge: true }).then(() => {
@@ -60,7 +60,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
             {year}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Rating: {rating}
+            Rating: {rating ? rating : "TBD"}
           </Typography>
         </CardContent>
         <CardActions>
