@@ -11,7 +11,7 @@ export default function Nav() {
         <AppBar color="default">
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
-                    <div className={styles.logo}>Movie Search</div>
+                    <div className={styles.logo}>The Watchlist</div>
                     <Hidden smDown>
                         <Link color="textPrimary" variant="button"underline="none" href="/" className={styles.link}><HomeIcon /></Link>
                         <Link color="textPrimary" variant="button"underline="none" href="/explore" className={styles.link}><TravelExplore /></Link>
