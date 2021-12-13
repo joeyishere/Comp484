@@ -5,23 +5,28 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from '../styles/landing.module.css';
 import MovieCard from '../Card/MovieCard';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import { useAuth, db } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore"; 
 
 export default function Favorties() {
     const currentUser = useAuth();
-    const [favorites, setFavorites] = useState({});
+    const [favorites, setFavorites] = useState(null);
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState('');
     useEffect(() => {
         const fetchFav = async () => {
             if (currentUser) {
                 const favoritesRef = doc(db, "users", currentUser.uid);
+                console.log(favoritesRef);
                 const docSnap = await getDoc(favoritesRef);
+                console.log(docSnap);
                 if (docSnap.exists()) {
                     console.log("Document data:", docSnap.data());
-                    setFavorites(docSnap.data().favorites);
+                    if(docSnap.data().favorites !== undefined)
+                        setFavorites(docSnap.data().favorites);
                     setName(docSnap.data().name);
                 } else {
                     // doc.data() will be undefined in this case
@@ -39,7 +44,7 @@ export default function Favorties() {
         setFavorites(newFav);
     }
 
-    if(currentUser && !loading) {
+    if(currentUser && !loading && favorites !== null) {
         return (
             <Container style={{marginTop: '90px'}} maxWidth="lg">
                 {Object.keys(favorites).length > 0 ? 
@@ -59,6 +64,15 @@ export default function Favorties() {
                         </Grid>
                     )}
                 </Grid>
+            </Container>
+        )
+    }
+    else if(currentUser && !loading && favorites === null) {
+        return (
+            <Container style={{marginTop: '90px'}} maxWidth="lg">
+                <Typography variant="h3" component="h3" style={{marginBottom: '30px'}} align="center" gutterBottom>
+                    Hi {name}, you have no favorite movies or tv shows, add some.
+                </Typography>
             </Container>
         )
     }
@@ -83,13 +97,9 @@ export default function Favorties() {
 
     if(loading) {
         return (
-            <Container style={{marginTop: '90px'}} maxWidth="lg">
-                <div style={{textAlign: 'center'}}>
-                    <Typography variant="h4" component="h4" gutterBottom>
-                        Loading...
-                    </Typography>
-                </div>
-            </Container>
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <CircularProgress color="warning" size={60} />
+            </Box>
         )
     }
 }

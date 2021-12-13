@@ -2,7 +2,9 @@ import React, {useRef, useState} from 'react';
 import { Container, List, ListItem, Input, Button } from '@mui/material';
 import {signUp, useAuth, db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-
+import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 export default function Register() {
 
     const emailRef = useRef();
@@ -10,7 +12,8 @@ export default function Register() {
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
     const currentUser = useAuth();
-
+    let navigate = useNavigate();
+    
     async function handleSignUp() {
         setLoading(true);
         try{
@@ -19,6 +22,8 @@ export default function Register() {
                     name: name,
                     email: user.user.email,
                     uid: user.user.uid
+                }).then(() => {
+                    navigate("/");
                 });
             });
         } catch(error){
@@ -29,9 +34,9 @@ export default function Register() {
 
     if(loading){
         return (
-            <Container maxWidth="lg" style={{marginTop: '90px'}}>
-                <h1>Loading...</h1>
-            </Container>
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <CircularProgress color="warning" size={60} />
+            </Box>
         )
     }
 
@@ -39,8 +44,6 @@ export default function Register() {
         return (
             <Container maxWidth="lg" style={{marginTop: '90px'}}>
                 <p>Welcome {name}, you have signed up.</p>
-                <Button variant="outlined" color="warning" href="/favorites" style={{marginRight: '15px'}}>Go to Favorites</Button>
-                <Button variant="outlined" color="warning" href="/">Go to Home Page</Button>
             </Container>
         )
     }

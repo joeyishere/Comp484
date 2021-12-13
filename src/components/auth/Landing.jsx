@@ -3,6 +3,8 @@ import { Container, Button, Typography } from '@mui/material';
 import styles from '../styles/landing.module.css';
 import { logout, useAuth, db } from '../../firebase'
 import { doc, getDoc } from "firebase/firestore"; 
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Landing() {
     const [loading, setLoading] = useState(false);
@@ -38,16 +40,16 @@ export default function Landing() {
     }
     if(loading) {
         return (
-            <Container maxWidth="lg" style={{marginTop: '90px'}}>
-                <h1>Loading...</h1>
-            </Container>
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <CircularProgress color="warning" size={60} />
+            </Box>
         )
     }
 
     if(currentUser){
         return (
             <Container maxWidth="lg" style={{marginTop: '90px', textAlign: 'center'}}>
-                <Typography variant="h3" component="h3">Welcome back, {name}</Typography>
+                <Typography variant="h3" component="h3">Hello, {name}</Typography>
                 <div style={{marginTop: '15px', marginBottom: '15px'}}>
                     <Typography variant="h6" component="h6">Email: {currentUser?.email}</Typography>
                 </div>
