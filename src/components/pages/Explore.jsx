@@ -1,12 +1,10 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Container } from '@mui/material'
+import { Container,Typography, Grid } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-//new imports for Switches ! 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+import MovieCard from '../Card/MovieCard';
+
 
 //All code for search bar styling. 
 const Search = styled('div')(({ theme }) => ({
@@ -54,53 +52,63 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-export default function Explore() {
-    const [movie, setMovie] = useState([])
-    const [show, setShow] = useState([])
 
-    const getMovie = async () => {
-        const response = await fetch('https://yts.lt/api/v2/list_movies.json?sort_by=rating')
-        const data = await response.json()
-        console.log(data);
-        setMovie(data.data.movies)
-        setShow(data.data.tv_shows)
+export default function Explore() {
+    const [movies, setMovies] = useState([])
+    const [searchTerm, setSearchTerm] = useState();
+    const [query, setQuery] = useState('spiderman')
+
+    useEffect(() =>{
+      fetchSearch();
+
+  },[query])
+
+    const fetchSearch = async () =>{
+      const response = await fetch('https://imdb-api.com/en/API/SearchMovie/k_f1trk5ey/' + query)
+      const data = await response.json();
+      console.log(data.results);
+      setMovies(data.results);
     }
+
+    const handleOnSubmit = (e) => {
+      e.preventDefault();
+      setQuery(searchTerm);
+      
+    }
+
+    const handleOnChange = (e) => {
+      setSearchTerm(e.target.value);
+      console.log(e.target.value);
+    }
+
 
     return (
         <Container maxWidth="lg" style={{marginTop: '10vh'}}>
             <h1>Explore</h1>
-              <Search>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
-          <div> 
-            <FormGroup aria-label ="position" row>
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 1" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 2" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 3" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 4" />
-            </FormGroup>
-          </div>
-          <div> 
-            <FormGroup aria-label ="position" row>
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 5" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 6" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 7" />
-              <FormControlLabel control={<Switch defaultChecked />} label="Genre 8" />
-            </FormGroup>
-          </div>
+            
+              <form onSubmit={handleOnSubmit}>
+                <Search>
+                  <SearchIconWrapper>
+                      <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search' }}
+                    onChange={handleOnChange}
+                  />
+                </Search>                
+              </form>
+              
+              
+          <h1>Movies</h1>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>                    
+                    {movies.map((item,i) => 
+                        <Grid key={i} item xs={2} sm={4} md={4}> 
+                            <MovieCard title = {item.title} img = {item.image} year = {item.description}/>
+                        </Grid>
+                    )}
+          </Grid>
 
-            {/* mapping through movies */}
-            {/* {movie.map(movie => (
-               <div>
-                
-                </div> 
-            ))} */}
         </Container>
     )
 }

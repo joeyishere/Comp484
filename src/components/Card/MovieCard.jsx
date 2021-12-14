@@ -59,9 +59,9 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
           <Typography variant="h6" color="text.secondary">
             {year}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          {rating ?<Typography variant="body1" color="text.secondary">
             Rating: {rating ? rating : "TBD"}
-          </Typography>
+          </Typography> :null}
         </CardContent>
         <CardActions>
           <Button color="warning" size="small">Learn More</Button>
