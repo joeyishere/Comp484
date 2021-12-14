@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Container,Typography, Grid } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import MovieCard from '../Card/MovieCard';
 
@@ -64,7 +64,7 @@ export default function Explore() {
   },[query])
 
     const fetchSearch = async () =>{
-      const response = await fetch('https://imdb-api.com/en/API/SearchMovie/k_f1trk5ey/' + query)
+      const response = await fetch('https://imdb-api.com/API/Search/k_f1trk5ey/' + query)
       const data = await response.json();
       console.log(data.results);
       setMovies(data.results);
@@ -78,35 +78,31 @@ export default function Explore() {
 
     const handleOnChange = (e) => {
       setSearchTerm(e.target.value);
-      console.log(e.target.value);
     }
 
 
     return (
         <Container maxWidth="lg" style={{marginTop: '10vh'}}>
-            <h1>Explore</h1>
+          <h1>Explore</h1>
             
-              <form onSubmit={handleOnSubmit}>
-                <Search>
-                  <SearchIconWrapper>
-                      <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ 'aria-label': 'search' }}
-                    onChange={handleOnChange}
-                  />
-                </Search>                
-              </form>
-              
-              
-          <h1>Movies</h1>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>                    
-                    {movies.map((item,i) => 
-                        <Grid key={i} item xs={2} sm={4} md={4}> 
-                            <MovieCard title = {item.title} img = {item.image} year = {item.description}/>
-                        </Grid>
-                    )}
+          <form onSubmit={handleOnSubmit} style={{width: '98.5%'}}>
+            <Search>
+              <SearchIconWrapper>
+                  <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleOnChange}
+              />
+            </Search>                
+          </form>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}  style={{marginTop: '40px'}}>                    
+              {movies.map((item,i) => 
+                  <Grid key={i} item xs={2} sm={4} md={4}> 
+                      <MovieCard title = {item.title} img = {item.image} year = {item.description}/>
+                  </Grid>
+              )}
           </Grid>
 
         </Container>

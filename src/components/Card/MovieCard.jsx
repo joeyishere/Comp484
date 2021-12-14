@@ -49,7 +49,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
         <CardMedia
           component="img"
           alt={title + " poster"}
-          height="140"
+          height="200"
           image = {img}
         />
         <CardContent>
@@ -60,7 +60,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
             {year}
           </Typography>
           {rating ?<Typography variant="body1" color="text.secondary">
-            Rating: {rating ? rating : "TBD"}
+            Rating: {rating}
           </Typography> :null}
         </CardContent>
         <CardActions>
