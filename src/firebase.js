@@ -20,22 +20,28 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// set auth to getAuth function from firebase
 const auth = getAuth();
 
+// get firestore from firebase and export it
 export const db = getFirestore();
 
+// exports the signup function
 export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
 }
 
+// exports the logout function
 export function logout() {
     return auth.signOut();
 }
 
+// exports the login function
 export function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
 }
 
+// exports function for checking if user is logged in and returns the user
 export function useAuth() {
     const [currentUser, setCurrentUser] = useState(null);
     useEffect(() => {

@@ -5,9 +5,11 @@ import {useAuth, db } from '../../firebase';
 import { doc, setDoc, deleteField } from "firebase/firestore"; 
 
 export default function MovieCard({title, img, year, rating, favPage, updateState}) {
+    // calls the useAuth hook and sets the state to the user
     const currentUser = useAuth();
-
+    // handles click of movie card
     async function handleClick() {
+      // if the user is logged in but not in favorites page then save to movie favorites data value in database
       if(currentUser && !favPage){
         const userDocRef = doc(db, "users", currentUser.uid);
         await setDoc(userDocRef, {
@@ -25,7 +27,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
           console.error("Error writing document: ", error);
         });
       }
-
+      // if the user is logged in and in favorites page then delete from movie favorites data value in database
       if(currentUser && favPage){
         const userDocRef = doc(db, "users", currentUser.uid);
         await setDoc(userDocRef, {
@@ -45,6 +47,7 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
     }
 
     return (
+      //Display Image Poster 
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -52,6 +55,8 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
           height="200"
           image = {img}
         />
+
+        {/*Dispaly Cinema Information:  Title , Year , & Rating  */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
            {title}
@@ -63,6 +68,8 @@ export default function MovieCard({title, img, year, rating, favPage, updateStat
             Rating: {rating}
           </Typography> :null}
         </CardContent>
+        
+        {/*Display 'Learn More' button on card */}
         <CardActions>
           <Button color="warning" size="small">Learn More</Button>
           <Button color="warning" size="small" onClick={handleClick}><Favorite /></Button>

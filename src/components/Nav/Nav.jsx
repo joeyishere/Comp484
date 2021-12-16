@@ -5,10 +5,13 @@ import { ChevronRight, TravelExplore, Menu , Favorite, AccountCircle} from '@mui
 import styles from '../styles/nav.module.css';
 
 export default function Nav() {
+    //use state false, nav currently closed 
     const [drawerOpen, setDrawerOpen] = useState(false);
 
+    //render navbar
     return (
         <AppBar color="default">
+            {/* navbar for desktop view */}
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     <div className={styles.logo}>The Watchlist</div>
@@ -25,6 +28,7 @@ export default function Nav() {
                     </Hidden>
                 </Toolbar>
             </Container>
+            {/* navbar for mobile view */}
             <SwipeableDrawer 
                 anchor="right" 
                 open={drawerOpen} 

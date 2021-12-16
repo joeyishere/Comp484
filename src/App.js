@@ -10,6 +10,7 @@ import Nav from './components/Nav/Nav';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
+// create App Dark theme
 function App() {
   let darkTheme = createTheme({
     palette: {
@@ -20,9 +21,13 @@ function App() {
   
   return (
     <Router>
+      {/*Wraps all pages with built theme*/}
       <ThemeProvider theme={darkTheme}>
+        {/* apply theme with CSS baseline */}
         <CssBaseline />
+        {/* render navbar component */}
         <Nav />
+        {/* Route definition set for each page page, now navigable */}
         <Routes>
           <Route exact path="/" element={<Home/>}/>
           <Route path="/landing" element={<Landing/>}/>
@@ -32,6 +37,7 @@ function App() {
           <Route path="/favorites" element={<Favorites/>}/>
         </Routes>
       </ThemeProvider>
+      {/*end theme wrap*/}
     </Router>
   );
 }

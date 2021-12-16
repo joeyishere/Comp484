@@ -6,24 +6,36 @@ import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    // reference to email input
     const emailRef = useRef();
+    // reference to password input
     const passwordRef = useRef();
+    // sets state of loading circle
     const [loading, setLoading] = useState(false);
+    // stores current user
     const currentUser = useAuth();
+    // stores navigate function for redirect
     let navigate = useNavigate();
 
     const handleLogin = async () => {
+        // sets loading state to true
         setLoading(true);
+        
+        //wait for user to enter information and login
         try {
             await login(emailRef.current.value, passwordRef.current.value).then(() => {
+                // redirect to home
                 navigate("/");
             });
         }
+        //login unsuccessful
         catch (error) {
             console.error(error);
         }
         setLoading(false);
     };
+
+    //display loading circle
     if(loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -32,6 +44,7 @@ export default function Login() {
         )
     }
 
+    //display login default
     if(!currentUser) {
         return (
             <Container maxWidth="lg" style={{marginTop: '90px'}}>
@@ -51,6 +64,7 @@ export default function Login() {
             </Container>
         )
     }
+    //login success message
     if(currentUser) {
         return (
             <Container maxWidth="lg" style={{marginTop: '90px', textAlign: 'center'}}>
